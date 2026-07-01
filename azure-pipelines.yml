@@ -1,0 +1,24 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.11'
+  displayName: 'Set up Python 3.11'
+
+- script: |
+    python -m pip upgrade pip
+    pip install pytest
+  displayName: 'Install Dependencies'
+
+- script: |
+    pytest test_app.py
+  displayName: 'Run Hello World Unit Tests'
+
+- script: |
+    python app.py
+  displayName: 'Run Hello World Application'
